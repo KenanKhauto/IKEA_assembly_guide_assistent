@@ -1,0 +1,3 @@
+Kenan: I am gonna use agent builder to create an agent with LangGraph, this agent is supposed to read text, image, pdf, and analyze those with the help of using defined tools.
+
+Kenan: My main objective is to make the vision model that will be the first step in the graph understand the names of ikea parts.
