@@ -1,3 +1,6 @@
 Kenan: I am gonna use agent builder to create an agent with LangGraph, this agent is supposed to read text, image, pdf, and analyze those with the help of using defined tools.
 
 Kenan: My main objective is to make the vision model that will be the first step in the graph understand the names of ikea parts.
+
+Kenan: I want to extract all images from the pdf and numerate them from 1 to n, I want to extract the first page with the product itself
+and the page where all entities are described. Then with Llava/VisionModel extract json for each image and numerate the extractions and ready them for the reasoning model (give everything as a list of text).
