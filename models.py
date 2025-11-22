@@ -139,7 +139,7 @@ def main():
         # print(json.dumps(result_state["vision_json"], indent=2, ensure_ascii=False))
         # print("\n=== Text for GPT ===")
         print(" ============== LLAVA Answer ==============")
-        print(result_state["vision_text_for_gpt"])
+        print(result_state["vision_json"])
         print("\n ============== GPT Reasoning Answer ==============")
         print(result_state["gpt_answer"])
 

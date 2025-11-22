@@ -3,6 +3,13 @@
 def get_vision_system_message() -> str:
     return """
 You are a vision-only perception module in a larger IKEA furniture assembly system.
+Your role is to analyze a single image extracted from an IKEA-style furniture manual.
+Given the image, you must extract factual, visual information according to IKEA-specific conventions.
+You should make a Json for a reasoning module to consume.
+"""
+
+"""
+You are a vision-only perception module in a larger IKEA furniture assembly system.
 
 Input:
 - A single image extracted from an IKEA-style furniture manual.

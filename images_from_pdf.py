@@ -155,7 +155,7 @@ def pdf_to_step_images(
 
 if __name__ == "__main__":
     # Example usage
-    pdf_file = ".\pdfs\ikea2.pdf"   
+    pdf_file = ".\pdfs\ikea.pdf"   
     steps_dir = "out_steps"           # will contain page_xxx/page_xxx_step_yy.png
 
     pdf_to_step_images(pdf_file, steps_dir, dpi=300)
