@@ -94,3 +94,52 @@ def format_vision_list_for_gpt(vision_items: list[dict]) -> str:
         lines.append("")  # blank line
 
     return "\n".join(lines)
+
+
+def build_previous_pages_context(vision_items: list[dict], max_pages: int = 3) -> str:
+    """
+    Build a short context string summarizing previous pages
+    to give LLaVA some memory without blowing up the context length.
+    """
+    # only take the last `max_pages` pages to keep it short
+    subset = vision_items[-max_pages:]
+    parts = []
+    for item in subset:
+        page = item.get("page_index")
+        text = item.get("vision_text", "")
+        parts.append(f"- Page {page}: {text}")
+    return "\n".join(parts)
+
+
+def _parse_vision_json(raw_text: str) -> dict:
+    """
+    Robust JSON parsing: handles plain JSON and markdown ```json``` blocks.
+    """
+    raw_text = raw_text.strip()
+    try:
+        return json.loads(raw_text)
+    except json.JSONDecodeError:
+        # try to clean markdown fencing
+        cleaned = raw_text
+        if cleaned.startswith("```"):
+            # strip leading/trailing backticks
+            cleaned = cleaned.strip("`")
+            # remove a possible 'json' language tag at the top
+            if cleaned.lstrip().lower().startswith("json"):
+                cleaned = cleaned.lstrip()[4:].strip()
+        return json.loads(cleaned)
+    
+
+def format_vision_list_for_gpt(vision_items: list[dict]) -> str:
+    """
+    Turn vision_items into a readable list for the reasoning LLM.
+    Assumes each item has 'page_index' and 'vision_text'.
+    """
+    lines = []
+    # sort by page_index just to be safe
+    for item in sorted(vision_items, key=lambda x: x.get("page_index", 0)):
+        page = item.get("page_index")
+        step = item.get("step_number", "unknown")
+        text = item.get("vision_text", "")
+        lines.append(f"[PAGE {page}, STEP {step}]\n{text}\n")
+    return "\n".join(lines)
