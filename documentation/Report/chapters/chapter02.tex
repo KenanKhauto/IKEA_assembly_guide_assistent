@@ -1,0 +1,202 @@
+\chapter{The Input Space}
+\begin{itemize}
+    \item URL beschreiben
+    \item 
+\end{itemize}
+
+
+The input for the system consists of standardized IKEA instruction manuals, typically provided in PDF format. These documents adhere to a strict visual syntax designed for low-context, high-visual dependency. The graphical style is monochromatic (black and white line art) to ensure high contrast and printability.
+
+The manual can be decomposed into distinct subsystems or structural modules. The following sections analyze these modules sequentially.
+
+\section{Title Page}
+The title page serves as the document header and establishes the "Goal State" of the assembly process. It is visually divided into three zones:
+
+\begin{itemize}
+    \item \textbf{Top Zone (Product Identity):}
+    Contains the product name in a large, bold, sans-serif typeface (uppercase). This acts as the primary identifier.
+    \item \textbf{Middle Zone (Visual Goal):}
+    A large-scale isometric line drawing of the fully assembled product. This provides the user with a visual confirmation of the expected output.
+    \item \textbf{Bottom Zone (Corporate Signature):}
+    Located at the bottom right. It contains the IKEA logo and the standard attribution string: "Design and Quality IKEA of Sweden".
+\end{itemize}
+
+\section{Footer System}
+The footer acts as the navigation and metadata layer of the document. The content of the footer changes dynamically based on the page type (parity) and position within the document sequence.
+
+\subsection{Title Page Footer}
+The title page does not contain a foote. This maximizes the visual space for the product illustration.
+
+\subsection{Odd Pages}
+Odd pages appear on the right side of a spread.
+\begin{itemize}
+    \item \textbf{Right Corner:} Contains the current Page Number.
+\end{itemize}
+
+\subsection{Even Pages}
+Even pages appear on the left side of a spread.
+\begin{itemize}
+    \item \textbf{Left Corner:} Contains the current Page Number.
+    \item \textbf{Center/Right (Optional):} May contain the Manual ID (Document Reference Code) in small print.
+\end{itemize}
+
+\subsection{Last Page (Terminator)}
+The final page acts as the document terminator and contains the full metadata set for version control. It is always an even page.
+\begin{itemize}
+    \item \textbf{Left Corner:} Page Number if applicable.
+    \item \textbf{Right Block:}
+    \begin{itemize}
+        \item \textbf{Copyright:} (e.g., \copyright Inter IKEA Systems B.V. 2021).
+        \item \textbf{Manual ID:} A unique document identifier, typically in the format \texttt{AA-XXXXXX-X} (where X is the version number).
+        \item \textbf{Print Date:} The production date of the manual, formatted as \texttt{YYYY-MM-DD}.
+    \end{itemize}
+\end{itemize}
+
+\section{Text-Based Warnings (Compliance Module)}
+Located immediately after the title page, this is often the only section containing significant textual data. It is a legal requirement primarily for furniture prone to tipping (e.g., dressers, bookshelves).
+
+\begin{itemize}
+    \item \textbf{Header (Visual Alert):}
+    Characterized by a Warning Triangle icon. It may also include specific "Prohibited Action" sketches (e.g., a child climbing on drawers with a large "X").
+    \item \textbf{Body (Multilingual Block):}
+    Contains the safety warning (e.g., "Serious or fatal crushing injuries can occur from furniture tip-over...") translated into over 30 languages. All visual Alerts are also mentioned here.
+    \item \textbf{Function:}
+    This section serves as a "Compliance Barrier". It interrupts the visual flow to force the user to acknowledge safety risks before the instructional images begin.
+\end{itemize}
+
+
+
+
+\section{The "IKEA-Gubbe" Subsystem}
+This subsystem initializes the assembly process. It acts as a visual checklist to define prerequisites, warnings, and safety rules before the physical assembly begins.
+
+\begin{itemize}
+    \item \textbf{1. Tool Initialization (Speech Bubble):}
+    The avatar identifies all external tools required (e.g., hammer, pencil, drill, ladder) that are \textit{not} included in the box.
+
+    \item \textbf{2. Material Decision Matrix (Optional/Conditional):}
+    This block appears primarily for wall-mounted furniture. It uses a logic table to show that different wall surfaces require different fastening methods:
+    \begin{itemize}
+        \item \textit{Concrete/Stone:} Requires a specific plug and screw.
+        \item \textit{Drywall/Hollow Wall:} Requires a special anchor.
+        \item \textit{Wood:} Requires only a screw (no plug).
+    \end{itemize}
+
+    \item \textbf{3. Instruction Blocks (Sequential):}
+    These are full-width containers stacked vertically. Each block represents a single "Global Rule" for the assembly. The specific blocks vary by product but can but must not include:
+    \begin{itemize}
+        \item \textbf{Resource Constraint:} Indicates if a second person is required (1 Agent vs. 2 Agents).
+        \item \textbf{Safety Scope:} Highlights critical safety parts included in the package (e.g., anti-tip brackets).
+        \item \textbf{Environment Setup:} Suggests assembling on a soft surface (carpet) to prevent scratches.
+        \item \textbf{Error Handling:} A telephone icon instructs the user to contact customer service if problems occur, rather than forcing a solution.
+        \item \textbf{Cleanup:} Instructions for recycling or trash disposal.
+        \item \textbf{Additional Warnings for safty.}
+    \end{itemize}
+\end{itemize}
+
+\section{Inventory \& Part Identification}
+This subsystem serves as the "Pre-Flight Check" or data validation layer. It requires the user to map physical objects to their virtual representations to ensure all necessary inputs are present before the assembly loop begins.
+
+\begin{itemize}
+    \item \textbf{1. The Part Grid (Hardware Matrix):}
+    The main body of this page organizes small hardware components into a grid. Each entry follows a strict syntax:
+    \begin{itemize}
+        \item \textbf{Visual Representation:} A high-fidelity isometric line drawing of the part.
+        \item \textbf{Quantity Qualifier:} An integer followed by an "x" (e.g., \texttt{4x}), indicating the expected count.
+        \item \textbf{Unique Identifier (Part ID):} A 6-digit code (e.g., \texttt{100214}) located next to the component. This acts as the primary key for the spare parts database.
+    \end{itemize}
+
+    \item \textbf{2. Sub-Kit Isolation (Dashed Containers):}
+    Certain groups of parts are enclosed in a dashed or solid box (as seen at the top of the page) It contains the Pagenumber for the step it is used. It is also drwn agian at the step.
+    \begin{itemize}
+        \item \textbf{Function:} This groups components that belong to a specific sub-assembly or a critical safety feature (e.g., the Wall Mounting Kit).
+        \item \textbf{Logic Link:} These boxes often correlate directly to the "Safety Scope" block defined in the previous \textit{IKEA-Gubbe} section.
+    \end{itemize}
+
+    \item \textbf{3. Scale Verification (Implicit):}
+    Although not always explicitly labeled with a ruler, screws and fittings are drawn to scale relative to each other within the grid to aid in visual disambiguation (sorting similar screws by length).
+\end{itemize}
+
+
+\section{Information Modules (Context Switch)}
+These modules represent a temporary interruption of the linear assembly sequence. Identified by the "i" symbol (Info-Icon) enclosed in a circle, they trigger a "Context Switch" from physical construction to system configuration or reference.
+
+Unlike numbered assembly steps, which are additive (Part A + Part B), Info Boxes are descriptive or operational. They typically fall into three functional categories:
+
+\begin{itemize}
+    \item \textbf{1. System Configuration \& Calibration:}
+    Instructions for fine-tuning the mechanical state of the assembled object.
+    \begin{itemize}
+        \item \textit{Example:} 3-Axis adjustment of hinges or leveling of drawers to ensure perfect alignment.
+        \item \textit{Logic:} These steps do not change the structure but modify its parameters (x, y, z positioning).
+    \end{itemize}
+
+    \item \textbf{2. External Dependency (Pointers):}
+    References to components that are modular or sold separately.
+    \begin{itemize}
+        \item \textit{Visual Syntax:} The avatar is depicted consulting a separate manual (e.g., for legs, lighting, or specialized doors).
+        \item \textit{Function:} Acts as a hyperlink to an external subsystem. The user must pause the current process, execute the external subroutine, and then return.
+    \end{itemize}
+
+    \item \textbf{3. Operational Guidance:}
+    Generalized rules on how to interact with the object safely or correctly during or after the build.
+    \begin{itemize}
+        \item \textit{Example:} Correct lifting techniques (e.g., requiring two people to tilt a heavy wardrobe) or explanations of locking mechanisms.
+        \item \textit{Differentiation:} While similar to warnings, these are often instructional (how-to) rather than purely prohibitory.
+    \end{itemize}
+\end{itemize}
+
+
+\section{Warning Modules (Safety Interrupts)}
+These modules act as "Critical System Interrupts." They are distinct from Info Boxes because they indicate a risk of physical injury or catastrophic product failure. They are visually identified by a **Triangle Icon** containing an exclamation mark.
+
+\begin{itemize}
+    \item \textbf{1. The Binary Hazard Logic (Do vs. Don't):}
+    The most common warning format uses a split-panel design to contrast the "Safe State" against the "Failure State".
+    \begin{itemize}
+        \item \textbf{The Correct State (Left/Top):} Shows the required action (e.g., anchoring the furniture to the wall).
+        \item \textbf{The Failure State (Right/Bottom):} Shows the consequence of negligence (e.g., the furniture tipping over onto a user). This image is always overlaid with a large cross ("X").
+        \item \textbf{System Goal:} To visualize the immediate negative outcome of skipping a step.
+    \end{itemize}
+
+    \item \textbf{2. Action Constraints (Prohibitions):}
+    These small warnings appear locally within specific assembly steps to limit user behavior.
+    \begin{itemize}
+        \item \textbf{Tool Restriction:} A symbol showing a specific tool (usually a power drill) crossed out. This signals that high torque will destroy the part; manual tools are required.
+        \item \textbf{Positional Restriction:} Instructions on how to interact with equipment safely (e.g., "Do not lean the ladder against a moving part" vs. "Place ladder on stable ground").
+    \end{itemize}
+\end{itemize}
+
+
+\section{Assembly Step (The Execution Loop)}
+The assembly steps represent the core "Main Loop" of the manual. Each step is an atomic operation, meaning it is an indivisible unit of work designed to minimize cognitive load. The system transitions strictly linearly from Step $n$ to Step $n+1$.
+
+\begin{itemize}
+    \item \textbf{1. Sequence Identifier (The Index):}
+    Located at the top-left corner, a large, bold integer (e.g., \textbf{9}) identifies the current step in the sequence.
+
+    \item \textbf{2. The Isometric Viewport (State Visualization):}
+    The central drawing defines the orientation of the physical object.
+    \begin{itemize}
+        \item \textbf{Orientation Lock:} The object in the drawing is positioned exactly as it should lie in front of the user. This removes the need for mental rotation.
+        \item \textbf{Ghosting/transparency:} Parts added in previous steps are shown in solid lines; new parts to be added are often shown "floating" near their destination to indicate trajectory.
+    \end{itemize}
+
+    \item \textbf{3. Action Vectors (The "Verbs"):}
+    Since there is no text, arrows define the operations:
+    \begin{itemize}
+        \item \textbf{Straight Arrow:} Translation (Insert, Push, Slide).
+        \item \textbf{Curved Arrow around Axis:} Rotation (Screw in, Turn key).
+        \item \textbf{Dashed Projection Line:} Alignment path (indicates where a component goes when the destination is far away or obscured).
+    \end{itemize}
+
+    \item \textbf{4. Detail Resolution (Zoom Bubbles):}
+    Circular callouts ("Bubbles") are used when the macro-view (isometric) lacks the resolution for precision tasks.
+    \begin{itemize}
+        \item \textbf{Micro-Interactions:} Shows specific mechanical details, such as the correct orientation of a cam lock or the head of a screw.
+        \item \textbf{Audio-Haptic Feedback:} The text "Click!" inside a bubble visually represents the required auditory confirmation that a snap-fit connection is secure.
+    \end{itemize}
+
+    \item \textbf{5. Local Constraints (Warnings):}
+    Steps may contain embedded constraints, such as a "No Power Drill" icon or a "2-Person Lift" icon, applying specifically to that single operation.
+\end{itemize}

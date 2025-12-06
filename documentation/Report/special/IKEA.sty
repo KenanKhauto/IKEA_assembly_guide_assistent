@@ -1,0 +1,54 @@
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}    % man kann Sonderzeiche wie ü,ö usw direkt eingeben
+
+\usepackage{amsmath}           % macht
+\usepackage{amsfonts}          %       Mathe
+\usepackage{amssymb}           %              mächtiger
+\usepackage{graphicx}          % erlaubt Graphiken einzubinden (.eps für dvi und ps sowie .jpg für pdf)
+\usepackage{svg}               % erlaubt SVG Graphiken einzubinden
+\usepackage[T1]{fontenc}       % Zeichenbelegung der verwendeten Schrift
+\usepackage{lmodern}           % macht schöneres ß
+\usepackage{typearea}	       % ermöglicht änderung des Seitenspiegels
+\usepackage{scrlayer-scrpage}  % ermöglicht änderung der Kopf-/Fußzeile
+\usepackage{lastpage}          % lässt auf die Seienanzahl zugreifen
+\usepackage[margin=10pt,font=small,labelfont=bf]{caption} % macht die Bildbeschriftungen richtig
+\usepackage[table,xcdraw]{xcolor}
+
+% --- Kopf- und Fußzeilen Einstellungen (scrlayer-scrpage) ---
+\usepackage{scrlayer-scrpage}
+\pagestyle{scrheadings}
+\clearpairofpagestyles % Löscht erst mal alles
+
+% Hier passiert die Magie:
+% Das erste Argument in [ ] sorgt für die Seitenzahl bei Kapitelanfängen
+% Das zweite Argument in { } sorgt für die Seitenzahl im Rest
+\cfoot[\thepage\ / \pageref{LastPage}]{\thepage\ / \pageref{LastPage}}
+
+% Optional: Linie in der Fußzeile auch auf Kapitelseiten?
+% \KOMAoptions{footsepline=true} % Linie immer an
+% \KOMAoptions{plainfootsepline=true} % Linie auch bei Kapiteln an
+
+% Einstellungen für Seitenspiegel und Spalten
+%\typearea{16}
+%\columnsep25pt
+
+% Schriftart der Seitennummer
+\renewcommand{\pnumfont}{\normalfont\rmfamily\slshape}
+
+
+\usepackage{hyperref}
+
+\renewcommand{\figurename}{fig.}
+
+
+\usepackage{lastpage}          % lässt auf die Seienanzahl zugreifen
+%\cfoot{\thepage /\pageref{LastPage}}     % macht die Seitennumerierung der Fom 2/5 (ausser auf der Titelseite)
+
+%\clearpairofpagestyles % Löscht die aktuellen Kopf- und Fußzeilen
+
+
+
+\usepackage{lipsum}
+
+\usepackage{csquotes} % Fügen Sie diese Zeile hinzu
+

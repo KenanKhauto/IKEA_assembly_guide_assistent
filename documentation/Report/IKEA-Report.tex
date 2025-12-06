@@ -1,0 +1,51 @@
+\documentclass[
+    paper = a4,
+    fontsize = 12pt,
+    headinclude = false,
+    % Start chapters on the next page, not necessarily the right side
+    open = any,
+    % Use single-sided layout
+    twoside = false,
+    % add lists and bibliography to table of contents
+    toc = listofnumbered,
+    toc = bibnumbered,
+    % enumerate chapters as x.y instead of x.y.
+    numbers = noendperiod
+]{scrreprt}
+
+% Preamble
+\usepackage{special/IKEA}
+
+%\usepackage[backend=biber, style=numeric]{biblatex}
+%\addbibresource{bibliography/bibIKEA.bib}
+
+\begin{document}
+
+% add title page
+\input{special/titlepage}
+
+\newpage
+
+
+% print table of contents
+\tableofcontents
+% create a tex file for each chapter and include it below
+\include{special/abstract}
+% 
+\include{chapters/chapter01}
+% 
+\include{chapters/chapter02}
+%
+\include{chapters/chapter03}
+%
+\include{chapters/chapter04}
+%
+\include{chapters/chapter05}
+
+
+% List of figgures
+%\listoffigures
+
+%\printbibliography
+
+\end{document}

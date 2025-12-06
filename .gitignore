@@ -1,3 +1,15 @@
 .env
 __pycache__/
 out_steps/
+
+*.aux
+*Zone.Identifier
+*.bbl
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.bcf-SAVE-ERROR
