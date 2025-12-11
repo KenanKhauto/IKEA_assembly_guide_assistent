@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IKEA Manual Converter</title>
+    <style>
+        /* --- CSS Variables (Strict Pastel Blue Palette) --- */
+        :root {
+            --blue-bg-main: #EBF5FB;      
+            --blue-bg-container: #F4F9FC; 
+            --blue-text-dark: #2C3E50;    
+            --blue-text-medium: #546E7A;  
+            --blue-accent: #5DADE2;       
+            --blue-accent-hover: #3498db; 
+            --blue-border-dashed: #AED6F1; 
+            --blue-input-bg: #FFFFFF;
+        }
+
+        /* --- General Reset --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--blue-bg-main);
+            color: var(--blue-text-dark);
+            line-height: 1.6;
+        }
+
+        /* --- Updated Header --- */
+        header {
+            background-color: var(--blue-bg-container);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #dbe8f1;
+            flex-wrap: wrap; /* Allows wrapping on mobile */
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--blue-accent);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            background-color: var(--blue-accent);
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+
+        /* --- Search & Dropdown Container --- */
+        .top-nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Dropdown Styling */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .drop-btn {
+            background-color: transparent;
+            color: var(--blue-text-medium);
+            padding: 8px 16px;
+            font-size: 1rem;
+            border: 2px solid var(--blue-border-dashed);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .drop-btn:hover {
+            border-color: var(--blue-accent);
+            color: var(--blue-accent);
+        }
+
+        .dropdown-content {
+            display: none; /* Hidden by default */
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(93, 173, 226, 0.2);
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--blue-border-dashed);
+            top: 100%; /* Position right below button */
+            margin-top: 5px;
+        }
+
+        .dropdown-content a {
+            color: var(--blue-text-medium);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--blue-bg-main);
+            color: var(--blue-accent);
+        }
+
+        /* Show dropdown on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Search Bar Styling */
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 8px 15px;
+            padding-right: 35px; /* Space for icon */
+            border-radius: 20px;
+            border: 2px solid var(--blue-border-dashed);
+            background-color: var(--blue-input-bg);
+            outline: none;
+            color: var(--blue-text-dark);
+            width: 250px;
+            transition: border-color 0.3s;
+        }
+
+        .search-input::placeholder {
+            color: #AAB7B8;
+        }
+
+        .search-input:focus {
+            border-color: var(--blue-accent);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--blue-accent);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        /* --- Hero Section (Same as before) --- */
+        .hero-section {
+            padding: 4rem 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+        }
+
+        .converter-container {
+            background-color: var(--blue-bg-container);
+            width: 100%;
+            max-width: 900px;
+            padding: 4rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 3px dashed var(--blue-border-dashed);
+            box-shadow: 0 4px 15px rgba(93, 173, 226, 0.1);
+        }
+
+        .main-icon {
+            font-size: 3rem;
+            color: var(--blue-accent);
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--blue-text-dark);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--blue-text-medium);
+            margin-bottom: 3rem;
+        }
+
+        /* --- Button Styling --- */
+        #file-upload { display: none; }
+
+        .big-upload-button {
+            display: inline-block;
+            background-color: var(--blue-accent);
+            color: white;
+            padding: 1.2rem 4rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(93, 173, 226, 0.3);
+        }
+
+        .big-upload-button:hover {
+            background-color: var(--blue-accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--blue-text-medium);
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <div class="logo-icon"></div>
+            IKEA Text Extractor
+        </div>
+
+        <div class="top-nav-controls">
+            <div class="dropdown">
+                <button class="drop-btn">Browse Categories ▼</button>
+                <div class="dropdown-content">
+                    <a href="#">Bedroom Manuals</a>
+                    <a href="#">Kitchen & Dining</a>
+                    <a href="#">Office Furniture</a>
+                    <a href="#">Storage & Organization</a>
+                    <a href="#">Children's IKEA</a>
+                </div>
+            </div>
+
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search for manual (e.g. BILLY)...">
+                <span class="search-icon">🔍</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="hero-section">
+        <div class="converter-container">
+            <div class="main-icon">📄</div>
+            <h1>IKEA Manual to Text Converter</h1>
+            <p class="subtitle">Upload your PDF manuals here to extract plain text.</p>
+
+            <input type="file" id="file-upload" accept=".pdf">
+            <label for="file-upload" class="big-upload-button">
+                Choose file
+            </label>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 IKEA Text Extractor Project.</p>
+    </footer>
+
+</body>
+</html>
