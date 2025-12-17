@@ -1,0 +1,201 @@
+{
+  "cache_key": "079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1",
+  "steps_dir": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\step_crops\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1",
+  "step_count": 8,
+  "padding_px": 16,
+  "min_box_size_px": 10,
+  "steps": [
+    {
+      "step_id": "079e27_p006_s00",
+      "global_step_index": 0,
+      "page_index": 6,
+      "panel_index": 0,
+      "bbox_xyxy": [
+        73.55172729492188,
+        26.928573608398438,
+        1699.0,
+        1069.2296142578125
+      ],
+      "bbox_xyxy_padded": [
+        57,
+        10,
+        1699,
+        1085
+      ],
+      "confidence": 0.8235722780227661,
+      "class_id": 0,
+      "image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\step_crops\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\step_079e27_p006_s00.png",
+      "width_px": 1642,
+      "height_px": 1075,
+      "source_page_image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\pdf_pages\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\page_006.png"
+    },
+    {
+      "step_id": "079e27_p006_s01",
+      "global_step_index": 1,
+      "page_index": 6,
+      "panel_index": 1,
+      "bbox_xyxy": [
+        82.45966339111328,
+        1050.8681640625,
+        1699.0,
+        2136.792724609375
+      ],
+      "bbox_xyxy_padded": [
+        66,
+        1034,
+        1699,
+        2152
+      ],
+      "confidence": 0.8832314610481262,
+      "class_id": 0,
+      "image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\step_crops\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\step_079e27_p006_s01.png",
+      "width_px": 1633,
+      "height_px": 1118,
+      "source_page_image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\pdf_pages\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\page_006.png"
+    },
+    {
+      "step_id": "079e27_p007_s00",
+      "global_step_index": 2,
+      "page_index": 7,
+      "panel_index": 0,
+      "bbox_xyxy": [
+        87.00857543945312,
+        30.793210983276367,
+        1699.0,
+        1106.2935791015625
+      ],
+      "bbox_xyxy_padded": [
+        71,
+        14,
+        1699,
+        1122
+      ],
+      "confidence": 0.8475338816642761,
+      "class_id": 0,
+      "image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\step_crops\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\step_079e27_p007_s00.png",
+      "width_px": 1628,
+      "height_px": 1108,
+      "source_page_image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\pdf_pages\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\page_007.png"
+    },
+    {
+      "step_id": "079e27_p007_s01",
+      "global_step_index": 3,
+      "page_index": 7,
+      "panel_index": 1,
+      "bbox_xyxy": [
+        67.23531341552734,
+        1051.3037109375,
+        1699.0,
+        2081.20654296875
+      ],
+      "bbox_xyxy_padded": [
+        51,
+        1035,
+        1699,
+        2097
+      ],
+      "confidence": 0.8553758263587952,
+      "class_id": 0,
+      "image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\step_crops\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\step_079e27_p007_s01.png",
+      "width_px": 1648,
+      "height_px": 1062,
+      "source_page_image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\pdf_pages\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\page_007.png"
+    },
+    {
+      "step_id": "079e27_p008_s00",
+      "global_step_index": 4,
+      "page_index": 8,
+      "panel_index": 0,
+      "bbox_xyxy": [
+        84.16094970703125,
+        35.793434143066406,
+        1699.0,
+        1106.9293212890625
+      ],
+      "bbox_xyxy_padded": [
+        68,
+        19,
+        1699,
+        1122
+      ],
+      "confidence": 0.6676639914512634,
+      "class_id": 0,
+      "image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\step_crops\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\step_079e27_p008_s00.png",
+      "width_px": 1631,
+      "height_px": 1103,
+      "source_page_image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\pdf_pages\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\page_008.png"
+    },
+    {
+      "step_id": "079e27_p008_s01",
+      "global_step_index": 5,
+      "page_index": 8,
+      "panel_index": 1,
+      "bbox_xyxy": [
+        59.84284973144531,
+        1076.9197998046875,
+        1699.0,
+        2114.66259765625
+      ],
+      "bbox_xyxy_padded": [
+        43,
+        1060,
+        1699,
+        2130
+      ],
+      "confidence": 0.8448039293289185,
+      "class_id": 0,
+      "image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\step_crops\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\step_079e27_p008_s01.png",
+      "width_px": 1656,
+      "height_px": 1070,
+      "source_page_image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\pdf_pages\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\page_008.png"
+    },
+    {
+      "step_id": "079e27_p009_s00",
+      "global_step_index": 6,
+      "page_index": 9,
+      "panel_index": 0,
+      "bbox_xyxy": [
+        44.59974670410156,
+        8.988189697265625,
+        1699.0,
+        1192.5689697265625
+      ],
+      "bbox_xyxy_padded": [
+        28,
+        0,
+        1699,
+        1208
+      ],
+      "confidence": 0.7444891333580017,
+      "class_id": 0,
+      "image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\step_crops\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\step_079e27_p009_s00.png",
+      "width_px": 1671,
+      "height_px": 1208,
+      "source_page_image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\pdf_pages\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\page_009.png"
+    },
+    {
+      "step_id": "079e27_p009_s01",
+      "global_step_index": 7,
+      "page_index": 9,
+      "panel_index": 1,
+      "bbox_xyxy": [
+        0.0,
+        977.4415283203125,
+        1699.0,
+        2139.58837890625
+      ],
+      "bbox_xyxy_padded": [
+        0,
+        961,
+        1699,
+        2155
+      ],
+      "confidence": 0.3590505123138428,
+      "class_id": 0,
+      "image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\step_crops\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\step_079e27_p009_s01.png",
+      "width_px": 1699,
+      "height_px": 1194,
+      "source_page_image_path": "C:\\Users\\Kenan\\Desktop\\IKEA_Project\\IKEA_assembly_guide_assistent\\artifacts_test\\pdf_pages\\079e27e44a249c67f54f480c46cc5773dd39546eb27f0b493cfd7a4ffc149e03_dpi200_png_pymupdf_v1\\page_009.png"
+    }
+  ]
+}

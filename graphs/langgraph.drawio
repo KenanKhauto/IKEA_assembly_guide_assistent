@@ -1,0 +1,57 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.8 Chrome/140.0.7339.240 Electron/38.4.0 Safari/537.36" version="28.2.8">
+  <diagram name="Page-1" id="DllJsfc8pdSEB6B61pEV">
+    <mxGraphModel dx="2122" dy="1444" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="xydGiBlGckpz8k8QTpza-4" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="xydGiBlGckpz8k8QTpza-1" target="xydGiBlGckpz8k8QTpza-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xydGiBlGckpz8k8QTpza-1" value="pdf_to_images" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-220" y="190" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="xydGiBlGckpz8k8QTpza-9" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="xydGiBlGckpz8k8QTpza-2" target="xydGiBlGckpz8k8QTpza-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="250" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xydGiBlGckpz8k8QTpza-11" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;dashed=1;" edge="1" parent="1" source="xydGiBlGckpz8k8QTpza-2" target="xydGiBlGckpz8k8QTpza-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xydGiBlGckpz8k8QTpza-12" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="xydGiBlGckpz8k8QTpza-2" target="xydGiBlGckpz8k8QTpza-13">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="319.9999999999998" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xydGiBlGckpz8k8QTpza-14" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="xydGiBlGckpz8k8QTpza-2" target="xydGiBlGckpz8k8QTpza-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="270" y="349.9999999999998" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xydGiBlGckpz8k8QTpza-2" value="page_type_classifier" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="190" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="xydGiBlGckpz8k8QTpza-3" value="This will output page types (title, warnings, parts, assembly steps)&lt;div&gt;It is kind of a filter&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-20" y="-60" width="190" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="xydGiBlGckpz8k8QTpza-16" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="xydGiBlGckpz8k8QTpza-10" target="xydGiBlGckpz8k8QTpza-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="550" y="115" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xydGiBlGckpz8k8QTpza-10" value="detect&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;_steps&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="275" y="70" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="xydGiBlGckpz8k8QTpza-13" value="extract_parts_with_VLM" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="180" width="150" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="xydGiBlGckpz8k8QTpza-15" value="extract_product_from_title" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="300" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="xydGiBlGckpz8k8QTpza-17" value="crop_steps" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="70" width="150" height="85" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
