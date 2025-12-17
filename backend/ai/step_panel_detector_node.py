@@ -1,8 +1,8 @@
-from typing import Dict, Any
-from yolo_step_panel_detector import StepPanelDetector
+from __future__ import annotations
+from typing import Dict, Any, List
 
 class DetectStepPanelsNode:
-    def __init__(self, detector: StepPanelDetector):
+    def __init__(self, detector):
         self.detector = detector
 
     def __call__(self, state: Dict[str, Any]) -> Dict[str, Any]:
@@ -10,28 +10,31 @@ class DetectStepPanelsNode:
         if not pdf_render or "pages" not in pdf_render:
             raise ValueError("Missing state['pdf_render']['pages']")
 
-        pages = pdf_render["pages"]
+        img_paths: List[str] = []
+        page_indices: List[int] = []
 
-        # Collect image paths in the same order
-        img_paths = []
-        page_indices = []
-        for p in pages:
-            # skip failed renders
+        for p in pdf_render["pages"]:
             if "image_path" not in p:
-                continue
+                continue  # skip failed renders
             img_paths.append(p["image_path"])
-            page_indices.append(p["page_index"])
+            page_indices.append(int(p["page_index"]))
 
         detections_per_page = self.detector.predict_many(img_paths)
 
-        step_candidates = []
+        per_page = {}  # page_index -> list of det dicts
         for page_index, dets in zip(page_indices, detections_per_page):
+            per_page[page_index] = []
             for d in dets:
-                step_candidates.append({
-                    "page_index": page_index,              # 0-based
-                    "bbox_xyxy": d.bbox_xyxy,              # pixel coords
+                per_page[page_index].append({
+                    "bbox_xyxy": d.bbox_xyxy,
                     "confidence": d.conf,
                     "class_id": d.cls,
                 })
 
-        return {"step_candidates": step_candidates}
+        return {
+            "panel_detections": {
+                "by_page": per_page,
+                "conf": self.detector.conf,
+                "iou": self.detector.iou,
+            }
+        }
