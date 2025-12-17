@@ -15,3 +15,6 @@ out_steps/
 *.bcf-SAVE-ERROR
 
 artifacts/
+dataset/
+labelimg_env/
+dataset_yolo/

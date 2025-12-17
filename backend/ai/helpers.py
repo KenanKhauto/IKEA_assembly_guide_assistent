@@ -1,9 +1,17 @@
+from __future__ import annotations
 import base64
 from io import BytesIO
 from typing import Any
 from PIL import Image
 import json
 import fitz
+from pathlib import Path
+from typing import Any, Dict, List, Sequence, Union, Optional
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+
+
 
 
 def pdf_to_b64_images(pdf_path, dpi=220):
@@ -157,3 +165,68 @@ def format_vision_list_for_gpt(vision_items: list[dict]) -> str:
         text = item.get("raw_text")
         lines.append(f"[PAGE {page}, STEP {step}]\n{text}\n")
     return "\n".join(lines)
+
+
+
+
+def visualize_detections(
+    image_path: Union[str, Path],
+    detections: Sequence[Any],
+    title: Optional[str] = None,
+    show_conf: bool = True,
+    linewidth: int = 2,
+) -> None:
+    """
+    Draw YOLO detections on an image and display it.
+
+    detections can be:
+      - List[Detection] where each has .bbox_xyxy and .conf
+      - List[dict] where each has "bbox_xyxy" (or "bbox") and optionally "confidence"
+      - Any object with bbox in xyxy form
+    """
+    img = Image.open(image_path).convert("RGB")
+
+    fig, ax = plt.subplots()
+    ax.imshow(img)
+    ax.axis("off")
+    ax.set_title(title or Path(image_path).name)
+
+    def _get_bbox_xyxy(d: Any) -> List[float]:
+        # dataclass Detection
+        if hasattr(d, "bbox_xyxy"):
+            return list(getattr(d, "bbox_xyxy"))
+        # dict styles
+        if isinstance(d, dict):
+            if "bbox_xyxy" in d:
+                return list(d["bbox_xyxy"])
+            if "bbox" in d:
+                return list(d["bbox"])
+        raise ValueError("Detection format not recognized. Expected bbox_xyxy.")
+
+    def _get_conf(d: Any) -> Optional[float]:
+        if hasattr(d, "conf"):
+            return float(getattr(d, "conf"))
+        if isinstance(d, dict) and "confidence" in d:
+            return float(d["confidence"])
+        return None
+
+    for det in detections:
+        x1, y1, x2, y2 = _get_bbox_xyxy(det)
+        w = x2 - x1
+        h = y2 - y1
+
+        rect = patches.Rectangle((x1, y1), w, h, fill=False, linewidth=linewidth)
+        ax.add_patch(rect)
+
+        if show_conf:
+            conf = _get_conf(det)
+            if conf is not None:
+                ax.text(
+                    x1,
+                    max(0, y1 - 5),
+                    f"{conf:.2f}",
+                    fontsize=10,
+                    va="bottom",
+                )
+
+    plt.show()
