@@ -3,6 +3,20 @@ from io import BytesIO
 from typing import Any
 from PIL import Image
 import json
+import fitz
+
+
+def pdf_to_b64_images(pdf_path, dpi=220):
+    imgs = []
+    doc = fitz.open(pdf_path)
+    try:
+        for i, page in enumerate(doc):
+            pix = page.get_pixmap(dpi=dpi, alpha=False)
+            png_bytes = pix.tobytes("png")
+            imgs.append(base64.b64encode(png_bytes).decode("utf-8"))
+    finally:
+        doc.close()
+    return imgs
 
 
 def load_image_as_base64(path: str) -> str:

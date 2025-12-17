@@ -13,3 +13,5 @@ out_steps/
 *.synctex.gz
 *.toc
 *.bcf-SAVE-ERROR
+
+artifacts/
