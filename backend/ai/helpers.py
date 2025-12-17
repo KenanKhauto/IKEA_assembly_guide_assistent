@@ -106,7 +106,7 @@ def build_previous_pages_context(vision_items: list[dict], max_pages: int = 3) -
     parts = []
     for item in subset:
         page = item.get("page_index")
-        text = item.get("vision_text", "")
+        text = item.get("raw_text")
         parts.append(f"- Page {page}: {text}")
     return "\n".join(parts)
 
@@ -140,6 +140,6 @@ def format_vision_list_for_gpt(vision_items: list[dict]) -> str:
     for item in sorted(vision_items, key=lambda x: x.get("page_index", 0)):
         page = item.get("page_index")
         step = item.get("step_number", "unknown")
-        text = item.get("vision_text", "")
+        text = item.get("raw_text")
         lines.append(f"[PAGE {page}, STEP {step}]\n{text}\n")
     return "\n".join(lines)

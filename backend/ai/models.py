@@ -68,23 +68,27 @@ def vision_llava_agent(state: ImageState) -> ImageState:
             response = llm.invoke([system_message, human_message])
             raw_text = response.content
 
+            # print("====== RAW LLaVA OUTPUT ======")
+            # print(raw_text)
+            # print("================================")
             # 4) parse JSON
-            vision_json = _parse_vision_json(raw_text)
+            # vision_json = _parse_vision_json(raw_text)
 
             # 5) convert to human-readable text for reasoning model
-            vision_text = vision_json_to_text(vision_json)
+            # vision_text = vision_json_to_text(vision_json)
 
             vision_item = {
                 "page_index": page_index,
                 "image_path": image_path,
-                "vision_json": vision_json,
-                "vision_text": vision_text,
+                "vision_json": "",
+                "vision_text": "",
+                "raw_text": raw_text
             }
 
             # if the JSON already contains a step number, keep it
-            step_number = vision_json.get("step_number") or vision_json.get("step")
-            if step_number is not None:
-                vision_item["step_number"] = step_number
+            # step_number = vision_json.get("step_number") or vision_json.get("step")
+            # if step_number is not None:
+            #     vision_item["step_number"] = step_number
 
             vision_items.append(vision_item)
 
@@ -159,7 +163,7 @@ def reasoning_gpt_agent(state: ImageState) -> ImageState:
         "Important:\n"
         "- Respect the part identifiers and quantities from the input as much as possible.\n"
         "- If information is ambiguous or missing, make a reasonable assumption and clearly mark it as such.\n"
-        "- The natural language instructions should be easy to follow for a non-technical user.\n\n"
+        "- The natural language instructions should be concise.\n\n"
         "----- BEGIN VISION ITEMS -----\n"
         f"{vision_text_block}\n"
         "----- END VISION ITEMS -----\n\n"
@@ -194,7 +198,7 @@ def main():
 
     result_state = app.invoke({
         "image_paths": [
-           
+            r".\images\1.jpg",
             r".\images\2.jpg",
             r".\images\3.jpg",
             r".\images\4.jpg",
