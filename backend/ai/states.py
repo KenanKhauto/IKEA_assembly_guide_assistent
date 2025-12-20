@@ -50,3 +50,19 @@ class ImageState(TypedDict, total=False):
 
     # If any node fails, it can set an error message here
     error: str
+
+
+class IkeaState(TypedDict, total=False):
+    # input
+    pdf_source: Dict[str, Any]
+
+    # preprocessing outputs
+    pdf_render: Dict[str, Any]
+    panel_detections: Dict[str, Any]
+    step_crops: Dict[str, Any]
+
+    # agentic fields
+    current_step: int
+    step_analyses: List[Dict[str, Any]]
+    messages: List[Dict[str, str]]
+    final_instructions: Dict[str, Any]

@@ -11,8 +11,58 @@ from typing import Any, Dict, List, Sequence, Union, Optional
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
+from pathlib import Path
+import re
+from typing import List, Tuple
 
+# ----------------------------------
+# Project root
+# ----------------------------------
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+ARTIFACTS_DIR = PROJECT_ROOT / "artifacts_test"
+STEP_CROPS_DIR = ARTIFACTS_DIR / "step_crops"
+
+# ----------------------------------
+# Step image parsing
+# ----------------------------------
+
+STEP_RE = re.compile(
+    r"step_(?P<pdfid>[a-f0-9]+)_p(?P<page>\d+)_s(?P<step>\d+)\.png$",
+    re.IGNORECASE
+)
+
+def collect_sorted_step_images(pdf_id: str) -> List[Path]:
+    """
+    Collects and sorts step images for one PDF by (page, step).
+
+    Returns absolute Paths.
+    """
+    pdf_dir = STEP_CROPS_DIR / pdf_id
+
+    if not pdf_dir.exists():
+        raise FileNotFoundError(f"Step crop directory not found: {pdf_dir}")
+
+    items: List[Tuple[int, int, Path]] = []
+
+    for img in pdf_dir.iterdir():
+        m = STEP_RE.match(img.name)
+        if not m:
+            continue
+
+        page = int(m.group("page"))
+        step = int(m.group("step"))
+        items.append((page, step, img))
+
+    if not items:
+        raise RuntimeError(f"No step images found in {pdf_dir}")
+
+    items.sort(key=lambda x: (x[0], x[1]))
+    return [p for _, __, p in items]
+
+def _image_to_base64(image_path: str | Path) -> str:
+    with open(image_path, "rb") as f:
+        return base64.b64encode(f.read()).decode("utf-8")
 
 def pdf_to_b64_images(pdf_path, dpi=220):
     imgs = []
