@@ -105,7 +105,7 @@ class CropStepPanelsNode:
                 except OSError:
                     pass
 
-        pdf_hash_short = cache_key.split(":")[0][:6]
+        pdf_hash_short = pdf_render["pdf_hash"][:6]  # cache_key.split(":")[0][:6]
 
         steps: List[Dict[str, Any]] = []
         global_step_idx = 0

@@ -53,10 +53,14 @@ class ImageState(TypedDict, total=False):
 
 
 class IkeaState(TypedDict, total=False):
+
+
     # input
     pdf_source: Dict[str, Any]
 
     # preprocessing outputs
+    manual_id: str                 # stable ID for DB
+    title_page: Dict[str, Any]     # ref to page0 image + extracted meta (optional)
     pdf_render: Dict[str, Any]
     panel_detections: Dict[str, Any]
     step_crops: Dict[str, Any]

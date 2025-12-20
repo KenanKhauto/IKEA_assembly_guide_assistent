@@ -15,6 +15,7 @@ out_steps/
 *.bcf-SAVE-ERROR
 
 artifacts/
+artifacts_test/
 dataset/
 labelimg_env/
 dataset_yolo/

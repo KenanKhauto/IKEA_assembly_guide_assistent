@@ -121,6 +121,13 @@ def instructor_agent(state: IkeaState) -> Dict[str, Any]:
         ),
     })
 
+    print(
+    "[INSTRUCTOR]",
+    "current_step =", state.get("current_step"),
+    "len(steps) =", len(steps),
+    "has_final =", "final_instructions" in state,
+    )
+
     return {"messages": messages}
 
 

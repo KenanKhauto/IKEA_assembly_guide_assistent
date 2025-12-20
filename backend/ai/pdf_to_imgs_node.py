@@ -104,9 +104,22 @@ class PdfToImagesNode:
             "format": image_format,
             "pages": pages,  # 0-based indices
         }
+        title_page = None
+        if pages and isinstance(pages[0], dict) and "image_path" in pages[0]:
+            title_page = {
+                "page_index": int(pages[0].get("page_index", 0)),
+                "image_path": pages[0]["image_path"],
+                "width_px": pages[0].get("width_px"),
+                "height_px": pages[0].get("height_px"),
+                "dpi": dpi,
+            }
 
         self._write_json(manifest_path, manifest)
-        return {"pdf_render": manifest}
+        return {
+                    "pdf_render": manifest,
+                    "manual_id": pdf_hash,
+                    "title_page": title_page,
+                }
 
     # -----------------------------
     # Helpers
