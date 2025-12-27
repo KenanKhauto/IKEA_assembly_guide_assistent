@@ -107,10 +107,6 @@ yarn start
 1. Start backend and frontend services  
 2. Open the frontend in your browser  
 3. Upload an IKEA manual (PDF or images)  
-4. Interact with the assistant to:
-   - Understand individual steps
-   - Ask clarification questions
-   - Navigate complex assemblies
 
 ---
 
