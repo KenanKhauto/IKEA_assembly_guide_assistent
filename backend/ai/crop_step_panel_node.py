@@ -8,6 +8,63 @@ import os
 
 from PIL import Image
 
+NMS_IOU = 0.6
+
+def _area_xyxy(b: List[float]) -> float:
+    x1, y1, x2, y2 = map(float, b)
+    return max(0.0, x2 - x1) * max(0.0, y2 - y1)
+
+def _iou_xyxy(a: List[float], b: List[float]) -> float:
+    ax1, ay1, ax2, ay2 = map(float, a)
+    bx1, by1, bx2, by2 = map(float, b)
+
+    ix1 = max(ax1, bx1)
+    iy1 = max(ay1, by1)
+    ix2 = min(ax2, bx2)
+    iy2 = min(ay2, by2)
+
+    iw = max(0.0, ix2 - ix1)
+    ih = max(0.0, iy2 - iy1)
+    inter = iw * ih
+    if inter <= 0.0:
+        return 0.0
+
+    union = _area_xyxy(a) + _area_xyxy(b) - inter
+    if union <= 0.0:
+        return 0.0
+    return inter / union
+
+def _nms_dedup_xyxy(
+    dets: List[Dict[str, Any]],
+    iou_thresh: float = 0.85,
+) -> List[Dict[str, Any]]:
+    """
+    Simple NMS: keeps highest-confidence boxes, removes boxes with IoU > threshold.
+    Expects each det to have: det["bbox_xyxy"] and optionally det["confidence"].
+    """
+    # keep only valid boxes
+    valid: List[Dict[str, Any]] = []
+    for d in dets:
+        bb = d.get("bbox_xyxy")
+        if isinstance(bb, list) and len(bb) == 4:
+            valid.append(d)
+
+    # sort by confidence descending (missing -> 0.0)
+    valid.sort(key=lambda d: float(d.get("confidence", 0.0)), reverse=True)
+
+    kept: List[Dict[str, Any]] = []
+    for d in valid:
+        bb = d["bbox_xyxy"]
+        is_dup = False
+        for k in kept:
+            if _iou_xyxy(bb, k["bbox_xyxy"]) > iou_thresh:
+                is_dup = True
+                break
+        if not is_dup:
+            kept.append(d)
+
+    return kept
+
 
 def _clamp(v: float, lo: float, hi: float) -> float:
     return max(lo, min(v, hi))
@@ -109,7 +166,7 @@ class CropStepPanelsNode:
 
         steps: List[Dict[str, Any]] = []
         global_step_idx = 0
-
+        nms_iou = float(cfg.get("nms_iou", NMS_IOU))
         # Process pages in order
         for page_index in sorted(by_page.keys()):
             img_path = page_path.get(page_index)
@@ -120,6 +177,12 @@ class CropStepPanelsNode:
             dets = by_page.get(page_index, [])
             if not dets:
                 continue
+
+            # Optional override: NMS IoU threshold
+            nms_iou = float(cfg.get("nms_iou", NMS_IOU))
+
+            # Deduplicate overlapping detections BEFORE cropping
+            dets = _nms_dedup_xyxy(dets, iou_thresh=nms_iou)
 
             # Open page image once
             img = Image.open(img_path).convert("RGB")
@@ -200,6 +263,7 @@ class CropStepPanelsNode:
             "padding_px": padding_px,
             "min_box_size_px": min_box_size_px,
             "steps": steps,
+            "nms_iou": nms_iou
         }
 
         self._write_json(manifest_path, manifest)
