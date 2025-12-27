@@ -33,7 +33,7 @@ Designed as a **full-stack application** with AI-driven components to analyze as
 ---
 
 ## 🧩 Project Overview
-![System Overview](images/image.png)
+![System Overview](images/system_overview.jpg)
 
 The **IKEA Assembly Guide Assistant** aims to reduce the cognitive load of understanding IKEA manuals by:
 
@@ -117,6 +117,7 @@ yarn start
 ---
 
 ## 🧠 AI & System Design
+![Agentic Structure](images/agentic_structure.png)
 
 - Multi-step instruction reasoning
 - Support for **agent-based communication**
@@ -143,10 +144,6 @@ npm test
 
 ## 💡 Future Work
 
-- 🔍 Advanced diagram understanding using VLMs
-- 🤖 Multi-agent debate between instruction interpreters
-- 🧩 Global dependency reasoning across steps
-- 🕶️ AR / VR assembly assistance
 - 📄 Exportable summarized instructions
 
 ---
@@ -159,5 +156,6 @@ See the `LICENSE` file for details.
 
 ## 📬 Contact
 
-**Author:** Kenan Khauto  
+**Authors:** Kenan Khauto, Christian Block  
 GitHub: https://github.com/KenanKhauto
+Github: https://github.com/topoftheblock
