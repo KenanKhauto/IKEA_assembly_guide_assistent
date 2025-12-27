@@ -43,8 +43,6 @@ The **IKEA Assembly Guide Assistant** aims to reduce the cognitive load of under
 4. Enabling AI agents to reason over steps **locally and globally**
 5. Providing users with clear, interactive explanations
 
-The system is designed with **extensibility** in mind — supporting agent-based reasoning, global step analysis, and future VR / AR integration.
-
 ---
 
 ## 🛠️ Getting Started
