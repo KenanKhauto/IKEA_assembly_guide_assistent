@@ -1,21 +1,21 @@
-# 🛠️ IKEA Assembly Guide Assistant
+# IKEA Assembly Guide Assistant
 
 A smart assistant that helps users interpret IKEA assembly manuals — making complex instructions easier to understand and act upon.  
 Designed as a **full-stack application** with AI-driven components to analyze assembly instructions from PDFs and images.
 
 ---
 
-## 🚀 Features
+## Features
 
-- 🧠 **Instruction Interpretation** – Parse IKEA manuals (PDFs / images) into structured assembly steps  
-- 💬 **Interactive Assistant** – AI-based reasoning over assembly steps  
-- 📄 Support for multi-page manuals with step-by-step breakdown  
-- 🔧 Modular **backend / frontend** architecture  
-- 🤖 Designed for **vision-language model integration** (image + text reasoning)
+- **Instruction Interpretation** – Parse IKEA manuals (PDFs / images) into structured assembly steps  
+- **Interactive Assistant** – AI-based reasoning over assembly steps  
+- Support for multi-page manuals with step-by-step breakdown  
+- Modular **backend / frontend** architecture  
+- Designed for **vision-language model integration** (image + text reasoning)
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 .
@@ -32,7 +32,7 @@ Designed as a **full-stack application** with AI-driven components to analyze as
 
 ---
 
-## 🧩 Project Overview
+## Project Overview
 ![System Overview](images/system_overview.jpg)
 
 The **IKEA Assembly Guide Assistant** aims to reduce the cognitive load of understanding IKEA manuals by:
@@ -45,7 +45,7 @@ The **IKEA Assembly Guide Assistant** aims to reduce the cognitive load of under
 
 ---
 
-## 🛠️ Getting Started
+## Getting Started
 
 ### 🔹 Requirements
 
@@ -56,7 +56,7 @@ The **IKEA Assembly Guide Assistant** aims to reduce the cognitive load of under
 
 ---
 
-## 🐍 Backend Setup
+## Backend Setup
 
 ```bash
 git clone https://github.com/KenanKhauto/IKEA_assembly_guide_assistent.git
@@ -85,7 +85,7 @@ python app.py
 
 ---
 
-## 🖥️ Frontend Setup
+## Frontend Setup
 
 ```bash
 cd ../frontend
@@ -102,7 +102,7 @@ yarn start
 
 ---
 
-## 📌 Usage
+## Usage
 
 1. Start backend and frontend services  
 2. Open the frontend in your browser  
@@ -110,7 +110,7 @@ yarn start
 
 ---
 
-## 🧠 AI & System Design
+## AI & System Design
 ![Agentic Structure](images/agentic_structure.png)
 
 - Multi-step instruction reasoning
@@ -122,7 +122,7 @@ Architecture diagrams can be found in the `graphs/` directory.
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ```bash
 pytest
@@ -136,19 +136,19 @@ npm test
 
 ---
 
-## 💡 Future Work
+## Future Work
 
-- 📄 Exportable summarized instructions
+- Exportable summarized instructions
 
 ---
 
-## 🛡️ License
+## License
 
 See the `LICENSE` file for details.
 
 ---
 
-## 📬 Contact
+## Contact
 
 **Authors:** Kenan Khauto, Christian Block  
 GitHub: https://github.com/KenanKhauto
