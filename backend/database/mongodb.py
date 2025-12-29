@@ -1,70 +1,111 @@
 import os
 from pymongo import MongoClient
 import gridfs
+from bson import ObjectId
 
-# --- CONFIGURATION ---
-# 1. Your specific local path
-BASE_PATH = "/Users/andreasblock/Desktop/5. Semester/Systems and Software Engineering/Task/pdfs"
+class IKEADatabase:
+    def __init__(self, uri="mongodb://localhost:27017/", db_name="ikea_database"):
+        self.client = MongoClient(uri)
+        self.db = self.client[db_name]
+        self.fs = gridfs.GridFS(self.db)
+        self.files_collection = self.db["fs.files"]
 
-# 2. Database Connection
-# Update the string if your DB is not local (e.g., MongoDB Atlas)
-client = MongoClient("mongodb://localhost:27017/")
-db = client["ikea_database"]
-fs = gridfs.GridFS(db)
+    def get_all_products(self):
+        """
+        Returns a list of unique categories and product names found in the database.
+        """
+        pipeline = [
+            {
+                "$group": {
+                    "_id": {
+                        "category": "$metadata.category",
+                        "product_name": "$metadata.product_name"
+                    }
+                }
+            },
+            {"$sort": {"_id.category": 1, "_id.product_name": 1}}
+        ]
+        results = list(self.files_collection.aggregate(pipeline))
+        
+        products = []
+        for r in results:
+            if r["_id"].get("product_name"):
+                products.append({
+                    "category": r["_id"].get("category", "Uncategorized"),
+                    "product_name": r["_id"].get("product_name")
+                })
+        return products
 
-def ingest_manuals(root_folder):
-    if not os.path.exists(root_folder):
-        print(f"❌ Error: The path '{root_folder}' does not exist.")
-        return
+    def get_manual_text_by_product(self, product_name):
+        """
+        Retrieves the translated text instructions for a specific product.
+        """
+        doc = self.files_collection.find_one({"metadata.product_name": product_name})
+        if doc and "metadata" in doc and "instructions_text" in doc["metadata"]:
+            return doc["metadata"]["instructions_text"]
+        return None
 
-    print(f"📂 Scanning: {root_folder}...\n")
-    
-    # Walk through the directory tree
-    for dirpath, dirnames, filenames in os.walk(root_folder):
-        for filename in filenames:
-            if filename.endswith(".pdf"):
-                full_path = os.path.join(dirpath, filename)
-                
-                # --- METADATA EXTRACTION ---
-                # We calculate the relative path to figure out Category and Product
-                # Example: /.../pdfs/Chair/applaro/0.pdf
-                # relative_path = "Chair/applaro/0.pdf"
-                relative_path = os.path.relpath(full_path, root_folder)
-                path_parts = relative_path.split(os.sep)
-                
-                # Based on your tree structure:
-                # Part 0 = Category (e.g., "Chair")
-                # Part 1 = Product Name (e.g., "applaro")
-                # Part 2 = Filename (e.g., "0.pdf")
-                
-                if len(path_parts) >= 3:
-                    category = path_parts[0]
-                    product_name = path_parts[1].replace("_", " ").title() # Clean up name
-                    
-                    # Check if file already exists in DB to avoid duplicates
-                    existing = db.fs.files.find_one({
-                        "metadata.category": category, 
-                        "metadata.product_name": product_name,
-                        "filename": filename
-                    })
+    def get_manual_text_by_filename(self, filename):
+        """
+        Retrieves text by filename (useful for checking uploads).
+        """
+        doc = self.files_collection.find_one({"filename": filename})
+        if doc and "metadata" in doc and "instructions_text" in doc["metadata"]:
+            return doc["metadata"]["instructions_text"]
+        return None
 
-                    if existing:
-                        print(f"⚠️  Skipping duplicate: {category} - {product_name}")
-                        continue
+    def save_manual_text(self, filename, text):
+        """
+        Updates the file document with the generated text instructions.
+        """
+        self.files_collection.update_one(
+            {"filename": filename},
+            {"$set": {"metadata.instructions_text": text}}
+        )
 
-                    # --- UPLOAD TO MONGODB ---
-                    with open(full_path, 'rb') as f:
-                        fs.put(
-                            f,
-                            filename=filename,
-                            metadata={
-                                "category": category,
-                                "product_name": product_name,
-                                "original_path": relative_path,
-                                "source": "local_disk"
-                            }
-                        )
-                    print(f"✅ Uploaded: [{category}] {product_name} ({filename})")
+    def upload_file(self, file_path, filename, category="Uncategorized", product_name=None):
+        """
+        Uploads a file to GridFS if it doesn't exist.
+        """
+        if not product_name:
+            product_name = filename.replace(".pdf", "").replace("_", " ").title()
 
+        # Check existing
+        existing = self.files_collection.find_one({"filename": filename})
+        if existing:
+            return existing["_id"]
+
+        with open(file_path, 'rb') as f:
+            file_id = self.fs.put(
+                f,
+                filename=filename,
+                metadata={
+                    "category": category,
+                    "product_name": product_name,
+                    "source": "web_upload",
+                    "instructions_text": None # Initialize empty
+                }
+            )
+        return file_id
+
+# --- For backward compatibility / standalone ingestion ---
 if __name__ == "__main__":
-    ingest_manuals(BASE_PATH)
+    # Example standalone usage
+    BASE_PATH = "/Users/andreasblock/Desktop/5. Semester/Systems and Software Engineering/Task/pdfs"
+    db = IKEADatabase()
+    
+    if os.path.exists(BASE_PATH):
+        print(f"📂 Scanning: {BASE_PATH}...\n")
+        for dirpath, dirnames, filenames in os.walk(BASE_PATH):
+            for filename in filenames:
+                if filename.endswith(".pdf"):
+                    full_path = os.path.join(dirpath, filename)
+                    relative_path = os.path.relpath(full_path, BASE_PATH)
+                    path_parts = relative_path.split(os.sep)
+                    
+                    if len(path_parts) >= 3:
+                        category = path_parts[0]
+                        product_name = path_parts[1].replace("_", " ").title()
+                        
+                        db.upload_file(full_path, filename, category, product_name)
+                        print(f"✅ Processed: {product_name}")

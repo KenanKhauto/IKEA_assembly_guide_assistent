@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IKEA Manual Converter</title>
     <style>
-        /* --- CSS Variables (Strict Pastel Blue Palette) --- */
+        /* --- CSS Variables --- */
         :root {
             --blue-bg-main: #EBF5FB;      
             --blue-bg-container: #F4F9FC; 
@@ -27,7 +27,7 @@
             line-height: 1.6;
         }
 
-        /* --- Updated Header --- */
+        /* --- Header --- */
         header {
             background-color: var(--blue-bg-container);
             padding: 1rem 5%;
@@ -35,7 +35,7 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #dbe8f1;
-            flex-wrap: wrap; /* Allows wrapping on mobile */
+            flex-wrap: wrap; 
             gap: 1rem;
         }
 
@@ -45,7 +45,6 @@
             color: var(--blue-accent);
             display: flex;
             align-items: center;
-            white-space: nowrap;
         }
         
         .logo-icon {
@@ -56,108 +55,34 @@
             border-radius: 4px;
         }
 
-        /* --- Search & Dropdown Container --- */
+        /* --- Controls --- */
         .top-nav-controls {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
-        /* Dropdown Styling */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .drop-btn {
-            background-color: transparent;
-            color: var(--blue-text-medium);
-            padding: 8px 16px;
-            font-size: 1rem;
+        /* Styled Select Dropdown */
+        .product-select {
+            padding: 8px 12px;
             border: 2px solid var(--blue-border-dashed);
             border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .drop-btn:hover {
-            border-color: var(--blue-accent);
-            color: var(--blue-accent);
-        }
-
-        .dropdown-content {
-            display: none; /* Hidden by default */
-            position: absolute;
             background-color: white;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(93, 173, 226, 0.2);
-            z-index: 1;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--blue-border-dashed);
-            top: 100%; /* Position right below button */
-            margin-top: 5px;
-        }
-
-        .dropdown-content a {
             color: var(--blue-text-medium);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9rem;
-        }
-
-        .dropdown-content a:hover {
-            background-color: var(--blue-bg-main);
-            color: var(--blue-accent);
-        }
-
-        /* Show dropdown on hover */
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* Search Bar Styling */
-        .search-container {
-            position: relative;
-        }
-
-        .search-input {
-            padding: 8px 15px;
-            padding-right: 35px; /* Space for icon */
-            border-radius: 20px;
-            border: 2px solid var(--blue-border-dashed);
-            background-color: var(--blue-input-bg);
+            font-size: 1rem;
+            cursor: pointer;
             outline: none;
-            color: var(--blue-text-dark);
-            width: 250px;
-            transition: border-color 0.3s;
         }
 
-        .search-input::placeholder {
-            color: #AAB7B8;
-        }
-
-        .search-input:focus {
+        .product-select:focus {
             border-color: var(--blue-accent);
         }
 
-        .search-icon {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--blue-accent);
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-
-        /* --- Hero Section (Same as before) --- */
+        /* --- Hero Section --- */
         .hero-section {
-            padding: 4rem 2rem;
+            padding: 2rem;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 60vh;
         }
@@ -166,11 +91,12 @@
             background-color: var(--blue-bg-container);
             width: 100%;
             max-width: 900px;
-            padding: 4rem 2rem;
+            padding: 3rem 2rem;
             border-radius: 12px;
             text-align: center;
             border: 3px dashed var(--blue-border-dashed);
             box-shadow: 0 4px 15px rgba(93, 173, 226, 0.1);
+            margin-bottom: 2rem;
         }
 
         .main-icon {
@@ -188,38 +114,72 @@
         .subtitle {
             font-size: 1.1rem;
             color: var(--blue-text-medium);
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
-        /* --- Button Styling --- */
         #file-upload { display: none; }
 
         .big-upload-button {
             display: inline-block;
             background-color: var(--blue-accent);
             color: white;
-            padding: 1.2rem 4rem;
-            font-size: 1.3rem;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(93, 173, 226, 0.3);
+            border: none;
         }
 
         .big-upload-button:hover {
             background-color: var(--blue-accent-hover);
             transform: translateY(-2px);
         }
-
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--blue-text-medium);
-            font-size: 0.9rem;
-            margin-top: auto;
+        
+        .big-upload-button:disabled {
+            background-color: #BDC3C7;
+            cursor: not-allowed;
+            transform: none;
         }
+
+        /* --- Results Area --- */
+        #results-area {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: none; /* Hidden by default */
+        }
+
+        .results-header {
+            font-size: 1.5rem;
+            color: var(--blue-accent);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--blue-bg-main);
+            padding-bottom: 0.5rem;
+        }
+
+        .instruction-text {
+            white-space: pre-wrap; /* Preserves newlines */
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            color: #333;
+        }
+        
+        .loading {
+            color: var(--blue-accent);
+            font-weight: bold;
+            display: none;
+            margin-top: 1rem;
+        }
+
     </style>
 </head>
 <body>
@@ -231,21 +191,9 @@
         </div>
 
         <div class="top-nav-controls">
-            <div class="dropdown">
-                <button class="drop-btn">Browse Categories ▼</button>
-                <div class="dropdown-content">
-                    <a href="#">Bedroom Manuals</a>
-                    <a href="#">Kitchen & Dining</a>
-                    <a href="#">Office Furniture</a>
-                    <a href="#">Storage & Organization</a>
-                    <a href="#">Children's IKEA</a>
-                </div>
-            </div>
-
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Search for manual (e.g. BILLY)...">
-                <span class="search-icon">🔍</span>
-            </div>
+            <select id="product-dropdown" class="product-select">
+                <option value="" disabled selected>Select a Product...</option>
+                </select>
         </div>
     </header>
 
@@ -253,12 +201,18 @@
         <div class="converter-container">
             <div class="main-icon">📄</div>
             <h1>IKEA Manual to Text Converter</h1>
-            <p class="subtitle">Upload your PDF manuals here to extract plain text.</p>
+            <p class="subtitle">Select a product from the top menu OR upload a new PDF.</p>
 
             <input type="file" id="file-upload" accept=".pdf">
             <label for="file-upload" class="big-upload-button">
-                Choose file
+                Upload New File
             </label>
+            <div id="loading-msg" class="loading">Processing... please wait (this may take a minute)</div>
+        </div>
+
+        <div id="results-area">
+            <div class="results-header" id="result-title">Instructions</div>
+            <div class="instruction-text" id="instruction-content"></div>
         </div>
     </main>
 
@@ -266,5 +220,105 @@
         <p>© 2025 IKEA Text Extractor Project.</p>
     </footer>
 
+    <script>
+        const API_URL = "http://localhost:8000"; 
+
+        // 1. Fetch Products on Load
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch(`${API_URL}/products`);
+                const products = await response.json();
+                
+                const dropdown = document.getElementById('product-dropdown');
+                
+                products.forEach(prod => {
+                    const option = document.createElement('option');
+                    option.value = prod.product_name;
+                    option.textContent = `${prod.category}: ${prod.product_name}`;
+                    dropdown.appendChild(option);
+                });
+
+                // Dropdown Event Listener
+                dropdown.addEventListener('change', async (e) => {
+                    const productName = e.target.value;
+                    await fetchManualText(productName);
+                });
+
+            } catch (err) {
+                console.error("Error fetching products:", err);
+            }
+        });
+
+        // 2. Fetch Text from DB (via Dropdown)
+        async function fetchManualText(productName) {
+            showLoading(true);
+            try {
+                const response = await fetch(`${API_URL}/manual-text?product_name=${encodeURIComponent(productName)}`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    displayResults(data.product_name, data.instructions);
+                } else {
+                    alert("Error: " + data.detail);
+                }
+            } catch (err) {
+                alert("Failed to fetch instructions.");
+                console.error(err);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // 3. Handle File Upload
+        const fileInput = document.getElementById('file-upload');
+        fileInput.addEventListener('change', async () => {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            showLoading(true);
+            const formData = new FormData();
+            formData.append("file", file);
+
+            try {
+                const response = await fetch(`${API_URL}/process-manual`, {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    displayResults(data.filename, data.instructions);
+                } else {
+                    alert("Processing Error: " + data.detail);
+                }
+            } catch (err) {
+                alert("Failed to process file.");
+                console.error(err);
+            } finally {
+                showLoading(false);
+                fileInput.value = ''; // Reset input
+            }
+        });
+
+        // Helper Functions
+        function showLoading(isLoading) {
+            const loader = document.getElementById('loading-msg');
+            loader.style.display = isLoading ? 'block' : 'none';
+        }
+
+        function displayResults(title, text) {
+            const area = document.getElementById('results-area');
+            const titleElem = document.getElementById('result-title');
+            const contentElem = document.getElementById('instruction-content');
+
+            area.style.display = 'block';
+            titleElem.textContent = "Instructions for: " + title;
+            // Handle if text is null or empty
+            contentElem.textContent = text || "No text instructions generated yet.";
+            
+            // Scroll to results
+            area.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
