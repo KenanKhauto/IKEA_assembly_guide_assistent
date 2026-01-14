@@ -3,8 +3,8 @@ from __future__ import annotations
 from typing import Any, Dict, List, Literal
 from openai import OpenAI
 from pathlib import Path
-from states import IkeaState
-from helpers import _image_to_base64
+from .states import IkeaState
+from .helpers import _image_to_base64
 
 
 # ---------

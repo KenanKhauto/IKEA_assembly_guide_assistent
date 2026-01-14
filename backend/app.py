@@ -7,9 +7,9 @@ from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 
 # AI Logic
-from backend.ai.models import use_agents
+from .ai.models import use_agents
 # Database Logic
-from backend.database.mongodb import IKEADatabase
+from .database.mongodb import IKEADatabase
 
 app = FastAPI(title="IKEA Assembly Assistant API")
 

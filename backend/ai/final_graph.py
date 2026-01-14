@@ -1,9 +1,9 @@
 from langgraph.graph import StateGraph, END
 
-from states import IkeaState
+from .states import IkeaState
 
 # NEW agent nodes + routing from the updated pipeline
-from agent_nodes import (
+from .agent_nodes import (
     init_agent_state,
     instructor_agent,
     step_analyst_agent,

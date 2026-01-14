@@ -1,10 +1,10 @@
 from dotenv import load_dotenv
 from pathlib import Path
-from pdf_to_imgs_node import PdfToImagesNode
-from step_panel_detector_node import DetectStepPanelsNode
-from yolo_step_panel_detector import StepPanelDetector
-from crop_step_panel_node import CropStepPanelsNode
-from final_graph import build_ikea_full_graph
+from .pdf_to_imgs_node import PdfToImagesNode
+from .step_panel_detector_node import DetectStepPanelsNode
+from .yolo_step_panel_detector import StepPanelDetector
+from .crop_step_panel_node import CropStepPanelsNode
+from .final_graph import build_ikea_full_graph
 
 
 

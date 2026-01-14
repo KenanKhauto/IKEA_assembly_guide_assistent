@@ -1,10 +1,8 @@
 from pathlib import Path
 import random
-from pdf_to_imgs_node import PdfToImagesNode
+from .pdf_to_imgs_node import PdfToImagesNode
 import shutil
 
-# your node
-# from your_module.pdf_to_images_node import PdfToImagesNode
 
 PDF_ROOT = Path(r"C:\Users\Kenan\Desktop\harvord_ikea\pdfs")
 ARTIFACTS_ROOT = Path("artifacts")
