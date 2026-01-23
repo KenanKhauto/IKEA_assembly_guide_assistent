@@ -206,7 +206,7 @@ h1 {
     background-color: #f8f9fa;
     padding: 1.5rem;
     border-radius: 8px;
-    border: 1px solid #eee;
+    border: 3px dashed var(--blue-border-dashed);
     color: #333;
 }
 
@@ -281,11 +281,14 @@ h1 {
 
 /* Card */
 .step-card {
+  max-width: 100%;
   background: #ffffff;
   border: 1px solid #eaeaea;
   border-radius: 16px;
   padding: 1.2rem 1.4rem;
   box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+  overflow: hidden;
+  min-width: 0;
 }
 
 /* Step number badge */
@@ -303,13 +306,13 @@ h1 {
 /* Image */
 .step-image {
   width: 100%;
-  max-width: 480px;
+  max-width: 500px;
+  min-width: 500px;
   max-height:480px;
   border-radius: 10px;
   border: 1px solid #ddd;
   display: block;
-  margin: 0 0 1rem 0;
-  align-items: center;
+  margin: 0 auto 1rem auto;
 }
 
 /* Markdown styling */
@@ -322,9 +325,14 @@ h1 {
 }
 
 .step-markdown h3 {
-  font-size: 1.2rem;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+  line-height: 1.3;
+  font-size: 1.15rem;        /* reduce size slightly */
+  margin: 0 0 0.6rem 0;
   font-weight: 700;
-  margin: 0 0 0.5rem 0;
   color: #1a1a1a;
 }
 
