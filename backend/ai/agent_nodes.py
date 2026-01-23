@@ -179,6 +179,29 @@ def step_analyst_agent(state: IkeaState) -> Dict[str, Any]:
 def route_after_crop(_: IkeaState) -> Literal["init_agent"]:
     return "init_agent"
 
+# def route_after_analyst(state: IkeaState) -> Literal["instructor", "__end__"]:
+#     # If instructor already produced final output, finish and go render
+#     if state.get("final_instructions"):
+#         return "render_output"
+#     return "instructor"
+
+
+def route_after_analyst(state: IkeaState) -> Literal["instructor", "__end__"]:
+    # always return to instructor; instructor will finish when i>=len(steps)
+    return "instructor"
+
+def route_after_instructor(state: IkeaState) -> Literal["step_analyst", "__end__"]:
+    # fi = state.get("final_instructions")
+    if "final_instructions" in state:
+        return "render_output"
+    return "step_analyst"
+
+
+"""
+##################### old ####################
+def route_after_crop(_: IkeaState) -> Literal["init_agent"]:
+    return "init_agent"
+
 
 def route_after_instructor(state: IkeaState) -> Literal["step_analyst", "__end__"]:
     if "final_instructions" in state:
@@ -190,3 +213,4 @@ def route_after_analyst(state: IkeaState) -> Literal["instructor", "__end__"]:
     # always return to instructor; instructor will finish when i>=len(steps)
     return "instructor"
 
+"""

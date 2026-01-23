@@ -35,7 +35,7 @@ def use_agents(path_pdfnode, path_detectornode, path_cropnode, path_to_pdf):
     graph = build_ikea_full_graph(pdf_node, detect_node, crop_node)
     # r"C:\Users\Kenan\Desktop\harvord_ikea\pdfs\Shelf\pinnig\0.pdf"
     state0 = {
-        "pdf_source": {"kind": "path", "path": path_to_pdf, "filename": "ikea4.pdf"}
+        "pdf_source": {"kind": "path", "path": path_to_pdf, "filename": path_to_pdf}
     }
 
     final_state = graph.invoke(state0, config={"recursion_limit": 200})

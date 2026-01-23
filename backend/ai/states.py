@@ -70,3 +70,5 @@ class IkeaState(TypedDict, total=False):
     step_analyses: List[Dict[str, Any]]
     messages: List[Dict[str, str]]
     final_instructions: Dict[str, Any]
+    output_text: str
+    output_text_list: List[str]

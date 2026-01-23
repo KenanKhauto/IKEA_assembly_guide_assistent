@@ -116,6 +116,7 @@ async def process_manual_endpoint(file: UploadFile = File(...)):
                 "assembly_instructions": steps,
                 # "analysis": cached_analysis,
                 "source": "database_cache",
+                "output_text_list": cached_analysis.get("output_text_list", []),
                 "cache_key": cached_analysis.get("cache_key"),
             }
 
@@ -129,6 +130,7 @@ async def process_manual_endpoint(file: UploadFile = File(...)):
         
         final_output = final_state.get("final_instructions", "Processing complete, but no text generated.")
         cache_key = final_state.get("pdf_render", {}).get("cache_key")
+        output_text_list = final_state.get("output_text_list", [])
         # unwrap {"raw": "..."} if needed
         if isinstance(final_output, dict):
             raw_text = final_output.get("raw", "")
@@ -143,20 +145,22 @@ async def process_manual_endpoint(file: UploadFile = File(...)):
             # "final_state": final_state,   # optional: can be big; remove if too large
             "pipeline": "use_agents_v1",
             "assembly_instructions": assembly_dict["assembly_instructions"],
+            "output_text_list": output_text_list,
             "cache_key":cache_key
         })
         # optional: store plain text separately too
         # ikea_db.save_instructions_text(content_hash, final_output)
 
         return {
-            "status": "success",
-            "filename": file.filename,
-            "content_hash": content_hash,
-            "cache_key":cache_key,
-            "cached": False,
-            "assembly_instructions": assembly_dict["assembly_instructions"],
-            "source": "ai_pipeline",
-        }
+                    "status": "success",
+                    "filename": file.filename,
+                    "content_hash": content_hash,
+                    "cache_key": cache_key,
+                    "cached": False,
+                    "assembly_instructions": assembly_dict["assembly_instructions"],
+                    "output_text_list": output_text_list,
+                    "source": "ai_pipeline",
+                }
 
     except Exception as e:
         print(f"Error: {e}")

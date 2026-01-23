@@ -12,6 +12,8 @@ from .agent_nodes import (
     route_after_analyst,
 )
 
+from .output_node import LlmRenderHumanOutputNode
+
 
 def build_ikea_full_graph(
     pdf_to_images_node,          # callable(state) -> dict
@@ -29,6 +31,9 @@ def build_ikea_full_graph(
     g.add_node("init_agent", init_agent_state)
     g.add_node("instructor", instructor_agent)
     g.add_node("step_analyst", step_analyst_agent)
+ 
+    # output node
+    g.add_node("render_output", LlmRenderHumanOutputNode(model="gpt-4o-mini", temperature=0.2, language="en"))
 
     # linear preprocess
     g.set_entry_point("pdf_to_images")
@@ -40,11 +45,13 @@ def build_ikea_full_graph(
     g.add_edge("init_agent", "instructor")
     g.add_conditional_edges("instructor", route_after_instructor, {
         "step_analyst": "step_analyst",
-        "__end__": END,
+        "render_output": "render_output",
     })
     g.add_conditional_edges("step_analyst", route_after_analyst, {
         "instructor": "instructor",
-        "__end__": END,
+        "render_output": "render_output",
     })
+
+    g.add_edge("render_output", END)
 
     return g.compile()
