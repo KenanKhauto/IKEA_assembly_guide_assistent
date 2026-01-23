@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
 import "./App.css";
 
 const API_URL = "http://localhost:8000";
@@ -7,6 +8,7 @@ export default function App() {
   // Data
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState("");
+  const [renderedSteps, setRenderedSteps] = useState([]);
 
   // UI state
   const [loading, setLoading] = useState(false);
@@ -14,8 +16,8 @@ export default function App() {
   const [cacheKey, setCacheKey] = useState("");
   const [assemblySteps, setAssemblySteps] = useState([]);  
   const [error, setError] = useState("");
-  const [plainText, setPlainText] = useState("");
   const fileInputRef = useRef(null);
+  const [currentStep, setCurrentStep] = useState(0);
 
   // Load products on mount
   useEffect(() => {
@@ -48,8 +50,9 @@ export default function App() {
       }
 
       setResultTitle(`Instructions for: ${data.product_name}`);
-      setPlainText(data.instructions || "No text instructions generated yet.");
-      setAssemblySteps([]); // clear structured steps
+      setRenderedSteps(data.output_text_list || []);
+      setAssemblySteps(data.assembly_instructions || []);
+      setCurrentStep(0);
     } catch (e) {
       console.error(e);
       setError(e.message || "Failed to fetch instructions.");
@@ -81,13 +84,13 @@ export default function App() {
       setResultTitle(`Instructions for: ${data.filename} ${data.cached ? "(cached)" : ""}`);
       setCacheKey(data.cache_key || "");
       setAssemblySteps(data.assembly_instructions || []);
-      setPlainText(""); // clear old text view
+      setRenderedSteps(data.output_text_list || []);
+      setCurrentStep(0);
     } catch (e) {
       console.error(e);
       setError(e.message || "Failed to process file.");
     } finally {
       setLoading(false);
-      // reset file input so same file can be re-uploaded
       if (fileInputRef.current) fileInputRef.current.value = "";
     }
   }
@@ -159,68 +162,80 @@ export default function App() {
         {hasResults && (
           <div className="results-area">
             <div className="results-header">{resultTitle}</div>
+
             <div className="instruction-text">
-                            {plainText ? (
-                  <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>{plainText}</pre>
-                ) : assemblySteps.length ? (
-                  <ol style={{ margin: 0, paddingLeft: "1.2rem" }}>
-                    {assemblySteps.map((s, idx) => (
-                      <li key={s.step_id ?? idx} style={{ marginBottom: "1rem" }}>
-                        <div style={{ fontWeight: 700 }}>{s.action_summary}</div>
-                        {(() => {
-                            const imgUrl =
-                              cacheKey && s.step_id
-                                ? `${API_URL}/static/crops/step_crops/${cacheKey}/step_${s.step_id}.png`
-                                : "";
-                            return imgUrl ? (
-                              <img
-                                src={imgUrl}
-                                alt={`Step ${idx + 1}`}
-                                style={{
-                                  width: "100%",
-                                  maxWidth: "900px",
-                                  borderRadius: "10px",
-                                  margin: "0.75rem 0",
-                                  border: "1px solid #ddd",
-                                }}
-                                onError={(e) => (e.currentTarget.style.display = "none")}
-                              />
-                            ) : null;
-                          })()}
-                        {s.objects?.length ? (
-                          <div><b>Objects:</b> {s.objects.join(", ")}</div>
-                        ) : null}
+                {renderedSteps.length ? (
+                  <>
+                    <div className="steps-nav">
+                      {renderedSteps.map((_, idx) => (
+                        <button
+                          key={assemblySteps[idx]?.step_id ?? idx}
+                          className={`steps-nav-btn ${idx === currentStep ? "active" : ""}`}
+                          onClick={() => setCurrentStep(idx)}
+                          type="button"
+                        >
+                          {idx + 1}
+                        </button>
+                      ))}
+                    </div>
 
-                        {s.fasteners?.length ? (
-                          <div><b>Fasteners:</b> {s.fasteners.join(", ")}</div>
-                        ) : null}
+                    <div className="steps-nav-actions">
+                      <button
+                        type="button"
+                        className="steps-action-btn"
+                        onClick={() => setCurrentStep((s) => Math.max(0, s - 1))}
+                        disabled={currentStep === 0}
+                      >
+                        ← Prev
+                      </button>
 
-                        {s.quantities ? (
-                          <div>
-                            <b>Quantities:</b>{" "}
-                            {Object.entries(s.quantities)
-                              .map(([k, v]) => `${k}: ${v}`)
-                              .join(", ")}
+                      <div className="steps-counter">
+                        Step {currentStep + 1} / {renderedSteps.length}
+                      </div>
+
+                      <button
+                        type="button"
+                        className="steps-action-btn"
+                        onClick={() => setCurrentStep((s) => Math.min(renderedSteps.length - 1, s + 1))}
+                        disabled={currentStep === renderedSteps.length - 1}
+                      >
+                        Next →
+                      </button>
+                    </div>
+
+                    {/* Render ONLY the selected step */}
+                    {(() => {
+                      const step = assemblySteps[currentStep];
+                      const stepText = renderedSteps[currentStep];
+                      const imgUrl =
+                        cacheKey && step?.step_id
+                          ? `${API_URL}/static/crops/step_crops/${cacheKey}/step_${step.step_id}.png`
+                          : "";
+
+                      return (
+                        <div className="step-card">
+                          
+
+                          {imgUrl && (
+                            <img
+                              src={imgUrl}
+                              alt={`Step ${currentStep + 1}`}
+                              className="step-image"
+                              onError={(e) => (e.currentTarget.style.display = "none")}
+                            />
+                          )}
+
+                          <div className="step-markdown">
+                            <ReactMarkdown>{stepText}</ReactMarkdown>
                           </div>
-                        ) : null}
-
-                        {s.warnings?.length ? (
-                          <div style={{ color: "#c0392b" }}>
-                            <b>Warnings:</b> {s.warnings.join(" | ")}
-                          </div>
-                        ) : null}
-
-                        {s.confidence != null ? (
-                          <div style={{ opacity: 0.8 }}>
-                            <b>Confidence:</b> {String(s.confidence)}
-                          </div>
-                        ) : null}
-                      </li>
-                    ))}
-                  </ol>
+                        </div>
+                      );
+                    })()}
+                  </>
                 ) : (
                   "No instructions generated yet."
                 )}
+
             </div>
           </div>
         )}
